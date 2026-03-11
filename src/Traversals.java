@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Traversals {
   public static void main(String[] args) {
@@ -35,7 +39,23 @@ public class Traversals {
     child3_1.children.add(child3_1_1);
     child3_1.children.add(child3_1_2);
 
-    System.out.print(max(root));
+    // System.out.print(max(root));
+
+    Map<Integer, List<Integer>> tree = new HashMap<>();
+    tree.put(33, List.of(24, 61, 12));
+    tree.put(17, List.of(5, 99));
+    tree.put(58, List.of(73));
+    tree.put(24, List.of(83, 6));
+    tree.put(88, List.of(17, 58, 33));
+    tree.put(5, new ArrayList<>());
+    tree.put(99, new ArrayList<>());
+    tree.put(73, new ArrayList<>());
+    tree.put(83, new ArrayList<>());
+    tree.put(6, new ArrayList<>());
+    tree.put(61, new ArrayList<>());
+    tree.put(12, new ArrayList<>());
+
+    preOrderMap(tree, 88);
   }
 
   static void preOrder(Node<?> node) {
@@ -43,6 +63,20 @@ public class Traversals {
     System.out.println(node.value);
     for(Node<?> child : node.children) {
       preOrder(child);
+    }
+  }
+
+  static void preOrderMap(Map<Integer, List<Integer>> tree, int current) {
+    // what if current isnt in our tree
+    if(!tree.containsKey(current)) return;
+
+    // print current
+    System.out.println(current);
+
+    // recurse its children
+    List<Integer> children = tree.get(current);
+    for(int child : children) {
+      preOrderMap(tree, child);
     }
   }
 
